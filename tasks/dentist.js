@@ -23,27 +23,45 @@ module.exports = function(grunt) {
       strip_whitespace: true
     });
 
-    var src, dest = {};
-
+    var src, dest = {}, filepath;
     // Sort out our file declarations --
     //   src = the source HTML file
     //  html = the destination HTML file
     //    js = the destination JS file
-    this.files.forEach(function(f) {
-      if (f.dest === "src") {
-        var filepath = f.src;
-        filepath = filepath.shift();
+    this.files.some(function(f) {
+      // grunt 0.4.3 had one file object..
+      if (f.dest_js) {
+        dest['dest_js'] = f.dest_js;
+        dest['dest_html'] = f.dest_html;
+        filepath = f.src[0];
+        if (!filepath || !grunt.file.exists(filepath)) {
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        }
+        src = grunt.file.read(filepath);
+        return true;
+      }
+      // grunt 0.4.2 had multiple.. strange
+      else if (f.dest === "src" && f.src) {
+        filepath = f.src.length ? f.src[0] : f.src;
+
         if (!grunt.file.exists(filepath)) {
           grunt.log.warn('Source file "' + filepath + '" not found.');
           return false;
         }
         src = grunt.file.read(filepath);
+        return false;
       }
       else {
-        console.log(f.orig);
         dest[f.dest] = f.orig.src[0];
+        return false;
       }
     });
+
+    if (! src || ! dest.dest_js || ! dest.dest_html) {
+      grunt.log.warn('Please specify src, dest_js, and dest_html.');
+      return false;
+    }
 
     // Use the HTML parser to grab anything inside script tags.
     var scripts = [], html = src, reading = false;
@@ -67,7 +85,7 @@ module.exports = function(grunt) {
     parser.write(src);
     parser.end();
 
-		// Replace any non-trivial scripts
+    // Replace any non-trivial scripts
     for (var i = 0; i < scripts.length; i++) {
       if (scripts[i].length && scripts[i] !== "\n") {
         html = html.replace(scripts[i], "");
