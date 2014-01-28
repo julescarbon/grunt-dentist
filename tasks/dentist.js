@@ -67,8 +67,9 @@ module.exports = function(grunt) {
     parser.write(src);
     parser.end();
 
+		// Replace any non-trivial scripts
     for (var i = 0; i < scripts.length; i++) {
-      if (scripts[i] !== "\n") {
+      if (scripts[i].length && scripts[i] !== "\n") {
         html = html.replace(scripts[i], "");
       }
     }
@@ -82,7 +83,7 @@ module.exports = function(grunt) {
       else { return ""; }
     });
 
-    // Replace the script with 
+    // Inject a script tag pointed at the minified file.
     if (options.include.length) {
       // Attempt to insert the shim after the closing body tag.
       var script_tag = '<script type="text/javascript" src="' + options.include + '"></script>';
