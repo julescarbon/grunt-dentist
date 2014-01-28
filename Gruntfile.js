@@ -31,39 +31,39 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     dentist: {
       single: {
-				options: {
-					include: null,
-					clear_scripts: false,
-					strip_whitespace: false
-				},
+        options: {
+          include: null,
+          clear_scripts: false,
+          strip_whitespace: false
+        },
         files: {
           src: 'test/fixtures/single.html',
-          js: 'tmp/single.js',
-          html: 'tmp/single.html',
+          dest_js: 'tmp/single.js',
+          dest_html: 'tmp/single.html',
         },
       },
       multiple: {
-				options: {
-					include: null,
-					clear_scripts: false,
-					strip_whitespace: false
-				},
+        options: {
+          include: null,
+          clear_scripts: false,
+          strip_whitespace: false
+        },
         files: {
           src: 'test/fixtures/multiple.html',
-          js: 'tmp/multiple.js',
-          html: 'tmp/multiple.html',
+          dest_js: 'tmp/multiple.js',
+          dest_html: 'tmp/multiple.html',
         },
       },
       template: {
-				options: {
-					include: null,
-					clear_scripts: false,
-					strip_whitespace: false
-				},
+        options: {
+          include: null,
+          clear_scripts: false,
+          strip_whitespace: false
+        },
         files: {
           src: 'test/fixtures/template.html',
-          js: 'tmp/template.js',
-          html: 'tmp/template.html',
+          dest_js: 'tmp/template.js',
+          dest_html: 'tmp/template.html',
         },
       },
       clear_scripts: {
@@ -74,8 +74,8 @@ module.exports = function(grunt) {
         },
         files: {
           src: 'test/fixtures/multiple.html',
-          js: 'tmp/clear.js',
-          html: 'tmp/clear.html',
+          dest_js: 'tmp/clear.js',
+          dest_html: 'tmp/clear.html',
         },
       },
     },

@@ -49,7 +49,7 @@ module.exports = function(grunt) {
     var scripts = [], html = src, reading = false;
     var parser = new htmlparser.Parser({
       onopentag: function(name, attribs){
-        if (name === "script" && (attribs.type === "text/javascript" && ! attribs.src) || ! attribs.type){
+        if (name === "script" && ! attribs.src && (attribs.type === "text/javascript" || ! attribs.type)){
           reading = true;
         }
       },
@@ -107,11 +107,11 @@ module.exports = function(grunt) {
     }
     
     // Write the destination file.
-    grunt.file.write(dest.js, scripts.join("\n"));
-    grunt.file.write(dest.html, html);
+    grunt.file.write(dest.dest_js, scripts.join("\n"));
+    grunt.file.write(dest.dest_html, html);
 
     // Print a success message.
-    grunt.log.writeln('Script "' + dest.js + '" extracted.');
+    grunt.log.writeln('Script "' + dest.dest_js + '" extracted.');
   });
 
 };
