@@ -18,9 +18,9 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('dentist', 'Wisdom extraction from script tags', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      include: "",
-      clear_scripts: false,
-      strip_whitespace: false
+      include: "app.min.js",
+      clear_scripts: true,
+      strip_whitespace: true
     });
 
     var src, dest = {};
