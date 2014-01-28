@@ -31,6 +31,11 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     dentist: {
       single: {
+				options: {
+					include: null,
+					clear_scripts: false,
+					strip_whitespace: false
+				},
         files: {
           src: 'test/fixtures/single.html',
           js: 'tmp/single.js',
@@ -38,6 +43,11 @@ module.exports = function(grunt) {
         },
       },
       multiple: {
+				options: {
+					include: null,
+					clear_scripts: false,
+					strip_whitespace: false
+				},
         files: {
           src: 'test/fixtures/multiple.html',
           js: 'tmp/multiple.js',
@@ -45,6 +55,11 @@ module.exports = function(grunt) {
         },
       },
       template: {
+				options: {
+					include: null,
+					clear_scripts: false,
+					strip_whitespace: false
+				},
         files: {
           src: 'test/fixtures/template.html',
           js: 'tmp/template.js',

@@ -84,7 +84,7 @@ module.exports = function(grunt) {
     });
 
     // Inject a script tag pointed at the minified file.
-    if (options.include.length) {
+    if (options.include) {
       // Attempt to insert the shim after the closing body tag.
       var script_tag = '<script type="text/javascript" src="' + options.include + '"></script>';
       var added = ["</body>", "</html>", "</head>"].some(function(shim){
