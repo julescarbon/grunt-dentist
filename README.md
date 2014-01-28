@@ -1,6 +1,10 @@
 # grunt-dentist
 
-This plugin will remove inline Javascript from your HTML and dump it to a new file, to be incorporated into your build process.  Additionally, it can replace any script tags pointed at local assets, and replace the lot with a single script tag pointed at your minified file.
+This plugin will remove inline Javascript from your HTML and dump it to a new file, to be incorporated into your build process.
+
+It will erase any `script` tags pointed at local assets, and replace the lot with a single `script` tag pointed at your minified file.
+
+Additionally, it knows to avoid templates and anything else which may be inlined using `script` tags.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.2`
@@ -32,12 +36,14 @@ grunt.initConfig({
     },
     dist: {
       src: 'docs/index.html',
-      js: 'docs/js/inline.js',
+      js: 'prod/js/inline.js',
       html: 'prod/index.html',
     },
   },
 });
 ```
+
+The script takes one file -- `src` -- as input, and outputs any inline JS to the file marked `js`, and the cleaned HTML to the file marked `html`.
 
 ### Options
 
@@ -45,24 +51,26 @@ grunt.initConfig({
 Type: `String`
 Default value: `app.min.js`
 
-The dentist will add a single `script` tag, pointed at your minified file, preferably above the closing `</body>` tag.  Note that this file is not created -- that presumably happens after further concat/minify tasks.
+The dentist will insert a single `script` tag into your HTML, preferably above the closing `</body>` tag.  Point this at your minified Javascript file.  Note that this file is not created -- that happens presumably after further concat/minify tasks.
 
 If set to null, the tag is not included.
 
 #### options.clear_scripts
-Type: `String`
+Type: `Boolean`
 Default value: `true`
 
-The dentist will remove any local Javascript it finds.
+The dentist will remove any local Javascript references it finds.  Any `script` tag not pointed at an external file will be excised.
 
 #### options.strip_whitespace
-Type: `String`
+Type: `Boolean`
 Default value: `true`
 
 The dentist will elide any extraneous whitespace (_horror vacui_).
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using the suppiled [Gruntfile](http://gruntjs.com/).
+
+And don't forget to floss!
 
 ## Release History
 v0.1.0 - 28 January 2014 - first release.
