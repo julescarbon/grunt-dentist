@@ -2,7 +2,7 @@
 
 This plugin will remove inline Javascript from your HTML and dump it to a new file, to be incorporated into your build process.
 
-It will erase any `script` tags pointed at local assets, and replace the lot with a single `script` tag pointed at your minified file.
+It will erase any `script` tags pointed at local assets, and replace the lot with a single `script` tag pointed at a minified file.
 
 Additionally, it knows to avoid templates and anything else which may be inlined using `script` tags.
 
@@ -36,14 +36,14 @@ grunt.initConfig({
     },
     dist: {
       src: 'docs/index.html',
-      js: 'prod/js/inline.js',
-      html: 'prod/index.html',
+      dest_js: 'prod/js/inline.js',
+      dest_html: 'prod/index.html',
     },
   },
 });
 ```
 
-The script takes one file -- `src` -- as input, and outputs any inline JS to the file marked `js`, and the cleaned HTML to the file marked `html`.
+The script takes one file -- `src` -- as input, and outputs any inline JS to the file marked `dest_js`, and the cleaned HTML to the file marked `dest_html`.
 
 ### Options
 
