@@ -28,7 +28,7 @@ exports.dentist = {
     done();
   },
   single: function(test) {
-    test.expect(2);
+    test.expect(3);
 
     var actual_html = grunt.file.read('tmp/single.html');
     var expected_html = grunt.file.read('test/expected/single.html');
@@ -38,10 +38,14 @@ exports.dentist = {
     var expected_js = grunt.file.read('test/expected/single.js');
     test.equal(actual_js, expected_js, 'should output some javascript.');
 
+    var actual_css = grunt.file.read('tmp/single.css');
+    var expected_css = grunt.file.read('test/expected/single.css');
+    test.equal(actual_css, expected_css, 'should output some css.');
+
     test.done();
   },
   multiple: function(test) {
-    test.expect(2);
+    test.expect(3);
 
     var actual_html = grunt.file.read('tmp/multiple.html');
     var expected_html = grunt.file.read('test/expected/multiple.html');
@@ -50,6 +54,10 @@ exports.dentist = {
     var actual_js = grunt.file.read('tmp/multiple.js');
     var expected_js = grunt.file.read('test/expected/multiple.js');
     test.equal(actual_js, expected_js, 'should output javascript catted together.');
+
+    var actual_css = grunt.file.read('tmp/multiple.css');
+    var expected_css = grunt.file.read('test/expected/multiple.css');
+    test.equal(actual_css, expected_css, 'should output some css sans script tags.');
 
     test.done();
   },
@@ -68,7 +76,7 @@ exports.dentist = {
   },
 
   clear_scripts: function(test) {
-    test.expect(4);
+    test.expect(6);
 
     var actual_html = grunt.file.read('tmp/clear.html');
     var expected_html = grunt.file.read('test/expected/clear.html');
@@ -78,8 +86,13 @@ exports.dentist = {
     var expected_js = grunt.file.read('test/expected/clear.js');
     test.equal(actual_js, expected_js, 'should output javascript.');
 
+    var actual_css = grunt.file.read('tmp/clear.css');
+    var expected_css = grunt.file.read('test/expected/clear.css');
+    test.equal(actual_css, expected_css, 'should output javascript.');
+
     test.notEqual(actual_html.indexOf("text/html"), -1, 'should preserve non-script templates.');
     test.notEqual(actual_html.indexOf("app.min.js"), -1, 'should add a single script tag.');
+    test.notEqual(actual_html.indexOf("app.css"), -1, 'should add a single stylesheet tag.');
 
     test.done();
   },

@@ -32,31 +32,36 @@ module.exports = function(grunt) {
     dentist: {
       single: {
         options: {
-          include: null,
+          include_js: null,
+          include_css: null,
           clear_scripts: false,
           strip_whitespace: false
         },
         files: {
           src: 'test/fixtures/single.html',
           dest_js: 'tmp/single.js',
+          dest_css: 'tmp/single.css',
           dest_html: 'tmp/single.html',
         },
       },
       multiple: {
         options: {
-          include: null,
+          include_js: null,
+          include_css: null,
           clear_scripts: false,
           strip_whitespace: false
         },
         files: {
           src: 'test/fixtures/multiple.html',
           dest_js: 'tmp/multiple.js',
+          dest_css: 'tmp/multiple.css',
           dest_html: 'tmp/multiple.html',
         },
       },
       template: {
         options: {
-          include: null,
+          include_js: null,
+          include_css: null,
           clear_scripts: false,
           strip_whitespace: false
         },
@@ -68,13 +73,15 @@ module.exports = function(grunt) {
       },
       clear_scripts: {
         options: {
-          include: "app.min.js",
+          include_js: "app.min.js",
+          include_css: "app.css",
           clear_scripts: true,
           strip_whitespace: true
         },
         files: {
           src: 'test/fixtures/multiple.html',
           dest_js: 'tmp/clear.js',
+          dest_css: 'tmp/clear.css',
           dest_html: 'tmp/clear.html',
         },
       },

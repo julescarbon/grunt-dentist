@@ -1,7 +1,6 @@
+abracadabra;
 abracadabra
+;
 abracadabra
-
-abracadabra
-
-
+;
 // nasty test
