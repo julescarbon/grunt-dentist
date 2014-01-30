@@ -20,7 +20,8 @@ module.exports = function(grunt) {
     var options = this.options({
       include_js: "app.min.js",
       include_css: "app.css",
-      clear_scripts: true,
+      clean_scripts: true,
+      clean_stylesheets: true,
       strip_whitespace: true
     });
 
@@ -160,7 +161,7 @@ module.exports = function(grunt) {
 				if (str.match(/ type=/) && ! str.match(/text\/javascript/)) { return str; }
 				else if (str.match(/src=['"]?(https?)/)) { return str; }
 				else if (str.match(/src=['"]?\/\//)) { return str; }
-				else if (! options.clear_scripts && str.match(/src=['"]/)) { return ""; }
+				else if (! options.clean_scripts && str.match(/src=['"]/)) { return str; }
 				else { return ""; }
 			});
 		}
@@ -171,10 +172,14 @@ module.exports = function(grunt) {
 			html = html.replace(/<style>.*<\/style>/g, "");
 
 			// External style resources use the link tag, check again for externals.
-			if (! options.clear_styles) {
-				html = html.replace(/<link.*>/g, function(str){
-					if (! str.match(/ rel=['"]?stylesheet/) && ! str.match(/text\/css/)) { return str; }
-					else if (str.match(/href=['"]?(https?)/)) { return str; }
+			if (options.clean_stylesheets) {
+				html = html.replace(/<link[^>]+>/g, function(str){
+					if (str.match(/src=/)) {
+						grunt.log.warn('Found LINK tag with SRC attribute.');
+						return str;
+					}
+					else if (! str.match(/ rel=['"]?stylesheet/)) { return str; }
+					else if (str.match(/href=['"]?https?/)) { return str; }
 					else if (str.match(/href=['"]?\/\//)) { return str; }
 					else { return ""; }
 				});

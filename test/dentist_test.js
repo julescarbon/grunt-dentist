@@ -45,7 +45,7 @@ exports.dentist = {
     test.done();
   },
   multiple: function(test) {
-    test.expect(3);
+    test.expect(6);
 
     var actual_html = grunt.file.read('tmp/multiple.html');
     var expected_html = grunt.file.read('test/expected/multiple.html');
@@ -58,6 +58,10 @@ exports.dentist = {
     var actual_css = grunt.file.read('tmp/multiple.css');
     var expected_css = grunt.file.read('test/expected/multiple.css');
     test.equal(actual_css, expected_css, 'should output some css sans script tags.');
+
+    test.notEqual(actual_html.indexOf("external"), -1, 'should contain external assets.');
+    test.notEqual(actual_html.indexOf("local.js"), -1, 'should contain local script refs.');
+    test.notEqual(actual_html.indexOf("local.css"), -1, 'should contain local stylesheet refs.');
 
     test.done();
   },
@@ -76,7 +80,7 @@ exports.dentist = {
   },
 
   clear_scripts: function(test) {
-    test.expect(6);
+    test.expect(9);
 
     var actual_html = grunt.file.read('tmp/clear.html');
     var expected_html = grunt.file.read('test/expected/clear.html');
@@ -90,6 +94,9 @@ exports.dentist = {
     var expected_css = grunt.file.read('test/expected/clear.css');
     test.equal(actual_css, expected_css, 'should output javascript.');
 
+    test.equal(actual_html.indexOf("local.css"), -1, 'should not contain local css.');
+    test.equal(actual_html.indexOf("local.js"), -1, 'should not contain local js.');
+    test.notEqual(actual_html.indexOf("external"), -1, 'should contain external assets.');
     test.notEqual(actual_html.indexOf("text/html"), -1, 'should preserve non-script templates.');
     test.notEqual(actual_html.indexOf("app.min.js"), -1, 'should add a single script tag.');
     test.notEqual(actual_html.indexOf("app.css"), -1, 'should add a single stylesheet tag.');

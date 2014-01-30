@@ -1,8 +1,10 @@
 # grunt-dentist
 
-This plugin will remove inline Javascript from your HTML and dump it to a new file, to be incorporated into your build process.
+This plugin will remove inline Javascript and CSS from your HTML and dump them to a new file, to be incorporated into your build process.
 
-It will erase any `script` tags pointed at local assets, and replace the lot with a single `script` tag pointed at a minified file.
+It can erase any `script` tags pointed at local assets, and replace the lot with single `script` tag pointed at a minified file.
+
+Likewise, it can erase any `style` and local `link rel='stylesheet'` tags and replace them with a single `link` tag.
 
 Additionally, it knows to avoid templates and anything else which may be inlined using `script` tags.
 
@@ -30,28 +32,37 @@ In your project's Gruntfile, add a section named `dentist` to the data object pa
 grunt.initConfig({
   dentist: {
     options: {
-      include: "/app.min.js",
+      include_js: "/app.min.js",
+      include_css: "/app.css",
       clear_scripts: true,
+      clear_stylesheets: true,
       strip_whitespace: true
     },
     dist: {
       src: 'docs/index.html',
       dest_js: 'prod/js/inline.js',
+      dest_css: 'prod/css/inline.css',
       dest_html: 'prod/index.html',
     },
   },
 });
 ```
 
-The script takes one file -- `src` -- as input, and outputs any inline JS to the file marked `dest_js`, and the cleaned HTML to the file marked `dest_html`.
-
 ### Options
 
-#### options.include
+#### options.include_js
 Type: `String`
 Default value: `app.min.js`
 
 The dentist will insert a single `script` tag into your HTML, preferably above the closing `</body>` tag.  Point this at your minified Javascript file.  Note that this file is not created -- that happens presumably after further concat/minify tasks.
+
+If set to null, the tag is not included.
+
+#### options.include_css
+Type: `String`
+Default value: `app.css`
+
+The dentist will insert a single `link` tag into your HTML, preferably above the closing `</head>` tag.  Point this at your minified CSS.  Likewise, dentist does not necessarily create this file.
 
 If set to null, the tag is not included.
 
@@ -61,11 +72,36 @@ Default value: `true`
 
 The dentist will remove any local Javascript references it finds.  Any `script` tag not pointed at an external file will be excised.
 
+#### options.clear_stylesheets
+Type: `Boolean`
+Default value: `true`
+
+The dentist will remove any local stylesheet references it finds.  Any `link rel='stylesheet'` tag not pointed at an external file will be excised.
+
 #### options.strip_whitespace
 Type: `Boolean`
 Default value: `true`
 
-The dentist will elide any extraneous whitespace (_horror vacui_).
+The dentist will elide any extraneous whitespace (_horror vacui_) in the output files.
+
+### Usage
+
+The script takes one file -- `src` -- as input, and outputs any inline JS to the file marked `dest_js`, inline CSS to `dest_css`, and the cleaned HTML to `dest_html`.
+
+If any of the destination files are unspecified, they are not processed.  For instance this task extracts inlined scripts only but does not touch HTML or CSS:
+
+```js
+grunt.initConfig({
+  dentist: {
+    extract: {
+      files: {
+        src: 'docs/index.html',
+        dest_js: 'prod/js/app.init.js',
+      }
+    },
+  },
+});
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using the suppiled [Gruntfile](http://gruntjs.com/).
@@ -73,6 +109,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 And don't forget to floss!
 
 ## Release History
-v0.2.0 - 28 January 2014 - first release.
+v0.3.0 - 30 January 2014 - added style tag support
+v0.2.0 - 28 January 2014 - post-publish bugfix
+v0.1.0 - 28 January 2014 - first release.
 
 
