@@ -34,6 +34,7 @@ module.exports = function(grunt) {
         options: {
           include_js: null,
           include_css: null,
+          clean_comments: false,
           clean_scripts: false,
           clean_stylesheets: false,
           strip_whitespace: false
@@ -49,6 +50,7 @@ module.exports = function(grunt) {
         options: {
           include_js: null,
           include_css: null,
+          clean_comments: false,
           clean_scripts: false,
           clean_stylesheets: false,
           strip_whitespace: false
@@ -64,6 +66,7 @@ module.exports = function(grunt) {
         options: {
           include_js: null,
           include_css: null,
+          clean_comments: false,
           clean_scripts: false,
           clean_stylesheets: false,
           strip_whitespace: false
@@ -78,6 +81,7 @@ module.exports = function(grunt) {
         options: {
           include_js: "app.min.js",
           include_css: "app.css",
+          clean_comments: true,
           clear_scripts: true,
           clean_stylesheets: true,
           strip_whitespace: true

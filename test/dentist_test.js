@@ -80,7 +80,7 @@ exports.dentist = {
   },
 
   clear_scripts: function(test) {
-    test.expect(10);
+    test.expect(12);
 
     var actual_html = grunt.file.read('tmp/clear.html');
     var expected_html = grunt.file.read('test/expected/clear.html');
@@ -94,6 +94,8 @@ exports.dentist = {
     var expected_css = grunt.file.read('test/expected/clear.css');
     test.equal(actual_css, expected_css, 'should output javascript.');
 
+    test.equal(actual_html.indexOf("<!--\n"), -1, 'should not contain comments.');
+    test.notEqual(actual_html.indexOf("<!--[if"), -1, 'should preserve conditional comments.');
     test.equal(actual_html.indexOf("local.css"), -1, 'should not contain local css.');
     test.equal(actual_html.indexOf("local.js"), -1, 'should not contain local js.');
     test.equal(actual_html.indexOf("<style"), -1, 'should not contain style tags.');
