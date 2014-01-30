@@ -112,9 +112,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 And don't forget to floss!
 
 ## Release History
-* v0.3.2 - 30 January 2014 - option to clear comments
-* v0.3.1 - 30 January 2014 - bugfix
-* v0.3.0 - 30 January 2014 - added style tag support
+* v0.3.2 - 30 January 2014 - added style tag support, clearing comments
 * v0.2.0 - 28 January 2014 - post-publish fixes
 * v0.1.0 - 28 January 2014 - first release.
 

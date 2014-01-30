@@ -166,16 +166,6 @@ module.exports = function(grunt) {
       });
     }
 
-    // Remove HTML comments
-    function remove_comments(){
-      if (options.clean_comments) {
-        html = html.replace(/<!--.*?-->/g, function(str){
-          if (str.match(/<!--\[if /)) { return str; }
-          else { return ""; }
-        });
-      }
-    }
-
     // Remove style and link tags pointing at local stylesheets
     function remove_stylesheet_tags() {
       // We can remove the style tag with impunity, it is always inlining.
@@ -191,6 +181,16 @@ module.exports = function(grunt) {
           else if (! str.match(/ rel=['"]?stylesheet/)) { return str; }
           else if (str.match(/href=['"]?https?/)) { return str; }
           else if (str.match(/href=['"]?\/\//)) { return str; }
+          else { return ""; }
+        });
+      }
+    }
+
+    // Remove HTML comments
+    function remove_comments(){
+      if (options.clean_comments) {
+        html = html.replace(/<!--[\s\S]*?-->/g, function(str){
+          if (str.match(/<!--\[if /)) { return str; }
           else { return ""; }
         });
       }
