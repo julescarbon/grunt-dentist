@@ -105,8 +105,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 And don't forget to floss!
 
 ## Release History
-v0.3.0 - 30 January 2014 - added style tag support
-v0.2.0 - 28 January 2014 - post-publish bugfix
-v0.1.0 - 28 January 2014 - first release.
+* v0.3.0 - 30 January 2014 - added style tag support
+* v0.2.0 - 28 January 2014 - post-publish bugfix
+* v0.1.0 - 28 January 2014 - first release.
 
 
