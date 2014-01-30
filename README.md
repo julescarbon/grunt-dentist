@@ -34,6 +34,7 @@ grunt.initConfig({
       include_css: "/app.css",
       clear_scripts: true,
       clear_stylesheets: true,
+      clear_comments: true,
       strip_whitespace: true
     },
     dist: {
@@ -76,6 +77,12 @@ Default value: `true`
 
 The dentist will remove any local stylesheet references it finds.  Any `link rel='stylesheet'` tag not pointed at an external file will be excised.
 
+#### options.clear_comments
+Type: `Boolean`
+Default value: `true`
+
+The dentist will remove any HTML comments it finds.  Legacy IE "conditional" comments will be preserved.
+
 #### options.strip_whitespace
 Type: `Boolean`
 Default value: `true`
@@ -105,6 +112,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 And don't forget to floss!
 
 ## Release History
+* v0.3.2 - 30 January 2014 - option to clear comments
 * v0.3.1 - 30 January 2014 - bugfix
 * v0.3.0 - 30 January 2014 - added style tag support
 * v0.2.0 - 28 January 2014 - post-publish fixes
