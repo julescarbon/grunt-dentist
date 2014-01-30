@@ -2,9 +2,7 @@
 
 This plugin will remove inline Javascript and CSS from your HTML and dump them to a new file, to be incorporated into your build process.
 
-It can erase any `script` tags pointed at local assets, and replace the lot with single `script` tag pointed at a minified file.
-
-Likewise, it can erase any `style` and local `link rel='stylesheet'` tags and replace them with a single `link` tag.
+It can erase any `script` tags pointed at local assets, and replace the lot with single `script` tag pointed at a minified file.  Likewise, it can erase any `style` and local `link rel='stylesheet'` tags and replace them with a single `link` tag.
 
 Additionally, it knows to avoid templates and anything else which may be inlined using `script` tags.
 
@@ -54,7 +52,7 @@ grunt.initConfig({
 Type: `String`
 Default value: `app.min.js`
 
-The dentist will insert a single `script` tag into your HTML, preferably above the closing `</body>` tag.  Point this at your minified Javascript file.  Note that this file is not created -- that happens presumably after further concat/minify tasks.
+The dentist will insert a single `script` tag into your HTML, preferably above the closing `</body>` tag.  Point this at your minified Javascript file.  Note that this file is not created by the dentist; it is your job to make sure it exists after further concat/minify tasks.
 
 If set to null, the tag is not included.
 
@@ -62,7 +60,7 @@ If set to null, the tag is not included.
 Type: `String`
 Default value: `app.css`
 
-The dentist will insert a single `link` tag into your HTML, preferably above the closing `</head>` tag.  Point this at your minified CSS.  Likewise, dentist does not necessarily create this file.
+The dentist will insert a single `link` tag into your HTML, preferably above the closing `</head>` tag.  Point this at your minified CSS.  Likewise, the dentist does not necessarily create this file.
 
 If set to null, the tag is not included.
 
@@ -86,9 +84,7 @@ The dentist will elide any extraneous whitespace (_horror vacui_) in the output 
 
 ### Usage
 
-The script takes one file -- `src` -- as input, and outputs any inline JS to the file marked `dest_js`, inline CSS to `dest_css`, and the cleaned HTML to `dest_html`.
-
-If any of the destination files are unspecified, they are not processed.  For instance this task extracts inlined scripts only but does not touch HTML or CSS:
+The script takes one `src` HTML file as input, and outputs any inline JS to the file marked `dest_js`, inline CSS to `dest_css`, and the cleaned HTML to `dest_html`.  If any of the destination files are unspecified, they are not processed.  For instance this task extracts inlined scripts only but does not touch HTML or CSS:
 
 ```js
 grunt.initConfig({
