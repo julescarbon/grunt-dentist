@@ -169,7 +169,7 @@ module.exports = function(grunt) {
 		// Remove style and link tags pointing at local stylesheets
 		function remove_stylesheet_tags() {
 			// We can remove the style tag with impunity, it is always inlining.
-			html = html.replace(/<style>.*<\/style>/g, "");
+			html = html.replace(/<style.+?<\/style>/g, "");
 
 			// External style resources use the link tag, check again for externals.
 			if (options.clean_stylesheets) {

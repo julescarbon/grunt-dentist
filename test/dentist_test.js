@@ -80,7 +80,7 @@ exports.dentist = {
   },
 
   clear_scripts: function(test) {
-    test.expect(9);
+    test.expect(10);
 
     var actual_html = grunt.file.read('tmp/clear.html');
     var expected_html = grunt.file.read('test/expected/clear.html');
@@ -96,6 +96,7 @@ exports.dentist = {
 
     test.equal(actual_html.indexOf("local.css"), -1, 'should not contain local css.');
     test.equal(actual_html.indexOf("local.js"), -1, 'should not contain local js.');
+    test.equal(actual_html.indexOf("<style"), -1, 'should not contain style tags.');
     test.notEqual(actual_html.indexOf("external"), -1, 'should contain external assets.');
     test.notEqual(actual_html.indexOf("text/html"), -1, 'should preserve non-script templates.');
     test.notEqual(actual_html.indexOf("app.min.js"), -1, 'should add a single script tag.');
