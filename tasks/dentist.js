@@ -65,9 +65,7 @@ module.exports = function(grunt) {
     //   dest_css = the destination JS file
     //    dest_js = the destination JS file
     function load_files(){
-
       var reading_js = false, reading_css = false;
-
       self.files.some(function(f) {
         // grunt 0.4.3 had one file object..
         if (f.dest_js) {
