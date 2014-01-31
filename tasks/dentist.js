@@ -16,6 +16,7 @@ module.exports = function(grunt) {
   // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('dentist', 'Wisdom extraction from documents', function() {
+
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       include_js: "app.min.js",
@@ -26,10 +27,12 @@ module.exports = function(grunt) {
       strip_whitespace: true
     });
 
+    // Globals
     var self = this;
     var src, dest = {}, filepath;
     var scripts = [], styles = [], html;
 
+    // Main Dentist task
     function run_dentist() {
       if (load_files() && parse_html()) {
         if (dest.dest_html) {
@@ -57,12 +60,14 @@ module.exports = function(grunt) {
     }
 
     // Sort out our file declarations --
+    //        src = the source HTML file
+    //  dest_html = the destination HTML file
+    //   dest_css = the destination JS file
+    //    dest_js = the destination JS file
     function load_files(){
+
       var reading_js = false, reading_css = false;
-      //        src = the source HTML file
-      //  dest_html = the destination HTML file
-      //   dest_css = the destination JS file
-      //    dest_js = the destination JS file
+
       self.files.some(function(f) {
         // grunt 0.4.3 had one file object..
         if (f.dest_js) {
@@ -101,7 +106,7 @@ module.exports = function(grunt) {
       return true;
     }
 
-    // Use the HTML parser to grab anything inside script tags.
+    // Use the HTML parser to grab anything inside script and style tags.
     function parse_html() {
       var reading_js = false, reading_css = false;
       var parser = new htmlparser.Parser({
@@ -155,8 +160,8 @@ module.exports = function(grunt) {
     }
 
     // Remove script tags pointing at local assets.
+    // Avoid wiping external dependencies and non-JS content inside script tags
     function remove_script_tags(){
-      // Avoid wiping external dependencies and non-JS content inside script tags
       html = html.replace(/<script[^>]*>.*?<\/script>/g, function(str){
         if (str.match(/ type=/) && ! str.match(/text\/javascript/)) { return str; }
         else if (str.match(/src=['"]?(https?)/)) { return str; }
@@ -197,9 +202,9 @@ module.exports = function(grunt) {
     }
 
     // Inject a script tag pointed at the minified JS.
+    // Attempt to insert the shim before the closing body tag.
     function inject_script_shim () {
       if (options.include_js) {
-        // Attempt to insert the shim after the closing body tag.
         var script_tag = '<script type="text/javascript" src="' + options.include_js + '"></script>';
         var shims = ["</body>", "</html>", "</head>"];
         inject(script_tag, shims);
@@ -207,9 +212,9 @@ module.exports = function(grunt) {
     }
 
     // Inject a style tag pointed at the minified CSS.
+    // Attempt to insert the shim before the closing head tag.
     function inject_stylesheet_shim () {
       if (options.include_css) {
-        // Attempt to insert the shim after the closing body tag.
         var style_tag = '<link rel="stylesheet" type="text/css" href="' + options.include_css + '">';
         var shims = ["</head>", "<body>", "</html>"];
         inject(style_tag, shims);
