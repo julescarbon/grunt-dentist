@@ -194,6 +194,7 @@ module.exports = function(grunt) {
       if (options.clean_comments) {
         html = html.replace(/<!--[\s\S]*?-->/g, function(str){
           if (str.match(/<!--\[if /)) { return str; }
+          if (str.match(/\n/)) { return str; }
           else { return ""; }
         });
       }

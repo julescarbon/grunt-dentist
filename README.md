@@ -81,7 +81,7 @@ The dentist will remove any local stylesheet references it finds.  Any `link rel
 Type: `Boolean`
 Default value: `true`
 
-The dentist will remove any HTML comments it finds.  Legacy IE "conditional" comments will be preserved.
+The dentist will remove any HTML comments it finds.  Legacy IE "conditional" comments will be preserved, as will multiline comments.
 
 #### options.strip_whitespace
 Type: `Boolean`
@@ -112,6 +112,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 And don't forget to floss!
 
 ## Release History
+* v0.3.4 - 23 February 2014 - preserve multiline comments
 * v0.3.2 - 30 January 2014 - added style tag support, clearing comments
 * v0.2.0 - 28 January 2014 - post-publish fixes
 * v0.1.0 - 28 January 2014 - first release.
