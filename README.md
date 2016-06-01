@@ -89,6 +89,18 @@ Default value: `true`
 
 The dentist will elide any extraneous whitespace (_horror vacui_) in the output files.
 
+#### options.js_insert_marker
+Type: `String`
+Default value: `"<!-- DENTIST JS -->"`
+
+Marker indicating where to insert the `script` tag.  Use with `options.include_js`.
+
+#### options.css_insert_marker
+Type: `String`
+Default value: `"<!-- DENTIST CSS -->"`
+
+Marker indicating where to insert the CSS `link` tag.  Use with `options.include_css`.
+
 ### Usage
 
 The script takes one `src` HTML file as input, and outputs any inline JS to the file marked `dest_js`, inline CSS to `dest_css`, and the cleaned HTML to `dest_html`.  If any of the destination files are unspecified, they are not processed.  For instance this task extracts inlined scripts only but does not touch HTML or CSS:
@@ -112,6 +124,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 And don't forget to floss!
 
 ## Release History
+* v0.3.6 - 1 June 2016 - options for js_insert_marker and css_insert_marker
 * v0.3.5 - 1 June 2016 - upgrade dependencies, use grunt 1.0.0
 * v0.3.4 - 23 February 2014 - preserve multiline comments
 * v0.3.2 - 30 January 2014 - added style tag support, clearing comments

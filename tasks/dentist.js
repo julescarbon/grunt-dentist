@@ -21,6 +21,8 @@ module.exports = function(grunt) {
     var options = this.options({
       include_js: "app.min.js",
       include_css: "app.css",
+      js_insert_marker: "<!-- DENTIST JS -->",
+      css_insert_marker: "<!-- DENTIST CSS -->",
       clean_scripts: true,
       clean_stylesheets: true,
       clean_comments: true,
@@ -194,8 +196,13 @@ module.exports = function(grunt) {
     function inject_script_shim () {
       if (options.include_js) {
         var script_tag = '<script type="text/javascript" src="' + options.include_js + '"></script>';
-        var shims = ["</body>", "</html>", "</head>"];
-        inject(script_tag, shims);
+        if (options.js_insert_marker && html.indexOf(options.js_insert_marker) !== -1) {
+          html.replace(options.js_insert_marker, script_tag);
+        }
+        else {
+          var shims = ["</body>", "</html>", "</head>"];
+          inject(script_tag, shims);
+        }
       }
     }
 
@@ -204,8 +211,13 @@ module.exports = function(grunt) {
     function inject_stylesheet_shim () {
       if (options.include_css) {
         var style_tag = '<link rel="stylesheet" type="text/css" href="' + options.include_css + '">';
-        var shims = ["</head>", "<body>", "</html>"];
-        inject(style_tag, shims);
+        if (options.css_insert_marker && html.indexOf(options.css_insert_marker) !== -1) {
+          html.replace(options.css_insert_marker, style_tag);
+        }
+        else {
+          var shims = ["</head>", "<body>", "</html>"];
+          inject(style_tag, shims);
+        }
       }
     }
 
