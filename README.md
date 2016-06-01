@@ -7,7 +7,7 @@ It can erase any `script` tags pointed at local assets, and replace the lot with
 Additionally, it knows to avoid templates and anything else which may be inlined using `script` tags.
 
 ## Getting Started
-This plugin requires Grunt `~0.4.2`
+This plugin requires Grunt `~1.0.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -112,6 +112,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 And don't forget to floss!
 
 ## Release History
+* v0.3.5 - 1 June 2016 - upgrade dependencies, use grunt 1.0.0
 * v0.3.4 - 23 February 2014 - preserve multiline comments
 * v0.3.2 - 30 January 2014 - added style tag support, clearing comments
 * v0.2.0 - 28 January 2014 - post-publish fixes

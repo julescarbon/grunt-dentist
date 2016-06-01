@@ -32,33 +32,6 @@ module.exports = function(grunt) {
     var src, dest = {}, filepath;
     var scripts = [], styles = [], html;
 
-    // Main Dentist task
-    function run_dentist() {
-      if (load_files() && parse_html()) {
-        if (dest.dest_html) {
-          if (dest.dest_js) {
-            remove_inline_scripts();
-            remove_script_tags();
-            inject_script_shim();
-          }
-          if (dest.dest_css) {
-            remove_inline_stylesheets();
-            remove_stylesheet_tags();
-            inject_stylesheet_shim();
-          }
-        }
-        remove_comments();
-
-        write_js();
-        write_css();
-        write_html();
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-
     // Sort out our file declarations --
     //        src = the source HTML file
     //  dest_html = the destination HTML file
@@ -200,6 +173,22 @@ module.exports = function(grunt) {
       }
     }
 
+    // Inject some text before a specified tag
+    function inject (tag, shims){
+      var added = shims.some(function(shim){
+        var i = html.lastIndexOf(shim);
+        if (i !== -1) {
+          html = html.substr(0, i) + tag + html.substr(i);
+          return true;
+        }
+        return false;
+      });
+      // Failing that, just append it.
+      if (! added) {
+        html += tag;
+      }
+    }
+
     // Inject a script tag pointed at the minified JS.
     // Attempt to insert the shim before the closing body tag.
     function inject_script_shim () {
@@ -217,22 +206,6 @@ module.exports = function(grunt) {
         var style_tag = '<link rel="stylesheet" type="text/css" href="' + options.include_css + '">';
         var shims = ["</head>", "<body>", "</html>"];
         inject(style_tag, shims);
-      }
-    }
-
-    // Inject some text before a specified tag
-    function inject (tag, shims){
-      var added = shims.some(function(shim){
-        var i = html.lastIndexOf(shim);
-        if (i !== -1) {
-          html = html.substr(0, i) + tag + html.substr(i);
-          return true;
-        }
-        return false;
-      });
-      // Failing that, just append it.
-      if (! added) {
-        html += tag;
       }
     }
 
@@ -265,6 +238,33 @@ module.exports = function(grunt) {
       if (dest.dest_html) {
         grunt.file.write(dest.dest_html, strip_whitespace(html));
         grunt.log.writeln('Document "' + dest.dest_html + '" extracted.');
+      }
+    }
+
+    // Main Dentist task
+    function run_dentist() {
+      if (load_files() && parse_html()) {
+        if (dest.dest_html) {
+          if (dest.dest_js) {
+            remove_inline_scripts();
+            remove_script_tags();
+            inject_script_shim();
+          }
+          if (dest.dest_css) {
+            remove_inline_stylesheets();
+            remove_stylesheet_tags();
+            inject_stylesheet_shim();
+          }
+        }
+        remove_comments();
+
+        write_js();
+        write_css();
+        write_html();
+        return true;
+      }
+      else {
+        return false;
       }
     }
 
