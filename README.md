@@ -124,7 +124,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 And don't forget to floss!
 
 ## Release History
-* v0.4.0 - 1 June 2016 - options for js_insert_marker and css_insert_marker
+* v0.4.1 - 1 June 2016 - options for js_insert_marker and css_insert_marker
 * v0.3.5 - 1 June 2016 - upgrade dependencies, use grunt 1.0.0
 * v0.3.4 - 23 February 2014 - preserve multiline comments
 * v0.3.2 - 30 January 2014 - added style tag support, clearing comments

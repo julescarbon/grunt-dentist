@@ -197,7 +197,7 @@ module.exports = function(grunt) {
       if (options.include_js) {
         var script_tag = '<script type="text/javascript" src="' + options.include_js + '"></script>';
         if (options.js_insert_marker && html.indexOf(options.js_insert_marker) !== -1) {
-          html.replace(options.js_insert_marker, script_tag);
+          html = html.replace(options.js_insert_marker, script_tag);
         }
         else {
           var shims = ["</body>", "</html>", "</head>"];
@@ -212,7 +212,7 @@ module.exports = function(grunt) {
       if (options.include_css) {
         var style_tag = '<link rel="stylesheet" type="text/css" href="' + options.include_css + '">';
         if (options.css_insert_marker && html.indexOf(options.css_insert_marker) !== -1) {
-          html.replace(options.css_insert_marker, style_tag);
+          html = html.replace(options.css_insert_marker, style_tag);
         }
         else {
           var shims = ["</head>", "<body>", "</html>"];
